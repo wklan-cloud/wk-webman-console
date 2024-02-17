@@ -22,7 +22,7 @@ class VersionCommand extends Command
         if (is_file($installed_file)) {
             $version_info = include $installed_file;
         }
-        $webman_framework_version = $version_info['versions']['workerman/webman-framework']['pretty_version'] ?? '';
+        $webman_framework_version = $version_info['versions']['wklan-cloud/wk-webman-framework']['pretty_version'] ?? '';
         $output->writeln("Webman-framework $webman_framework_version");
         return self::SUCCESS;
     }
