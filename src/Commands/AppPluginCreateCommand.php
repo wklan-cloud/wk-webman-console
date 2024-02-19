@@ -446,10 +446,10 @@ EOF;
         $content = <<<EOF
 <?php
 
-use Support\\view\\Raw;
-use Support\\view\\Twig;
-use Support\\view\\Blade;
-use Support\\view\\ThinkPHP;
+use Support\\View\\Raw;
+use Support\\View\\Twig;
+use Support\\View\\Blade;
+use Support\\View\\ThinkPHP;
 
 return [
     'handler' => Raw::class
