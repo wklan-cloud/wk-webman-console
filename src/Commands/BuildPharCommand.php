@@ -18,7 +18,7 @@ class BuildPharCommand extends Command
     public function __construct(string $name = null)
     {
         parent::__construct($name);
-        $this->buildDir = config('plugin.webman.console.app.build_dir', base_path() . '/build');
+        $this->buildDir = config('common.console.build_dir', base_path() . '/build');
     }
 
     /**
@@ -47,7 +47,7 @@ class BuildPharCommand extends Command
             }
         }
 
-        $phar_filename = config('plugin.webman.console.app.phar_filename', 'webman.phar');
+        $phar_filename = config('common.console.phar_filename', 'webman.phar');
         if (empty($phar_filename)) {
             throw new RuntimeException('Please set the phar filename.');
         }
@@ -57,18 +57,18 @@ class BuildPharCommand extends Command
             unlink($phar_file);
         }
 
-        $exclude_pattern = config('plugin.webman.console.app.exclude_pattern','');
+        $exclude_pattern = config('common.console.exclude_pattern','');
 
         $phar = new Phar($phar_file,0,'webman');
 
         $phar->startBuffering();
 
-        $signature_algorithm = config('plugin.webman.console.app.signature_algorithm');
+        $signature_algorithm = config('common.console.signature_algorithm');
         if (!in_array($signature_algorithm,[Phar::MD5, Phar::SHA1, Phar::SHA256, Phar::SHA512,Phar::OPENSSL])) {
             throw new RuntimeException('The signature algorithm must be one of Phar::MD5, Phar::SHA1, Phar::SHA256, Phar::SHA512, or Phar::OPENSSL.');
         }
         if ($signature_algorithm === Phar::OPENSSL) {
-            $private_key_file = config('plugin.webman.console.app.private_key_file');
+            $private_key_file = config('common.console.private_key_file');
             if (!file_exists($private_key_file)) {
                 throw new RuntimeException("If the value of the signature algorithm is 'Phar::OPENSSL', you must set the private key file.");
             }
@@ -83,7 +83,7 @@ class BuildPharCommand extends Command
         $phar->buildFromDirectory(BASE_PATH,$exclude_pattern);
 
 
-        $exclude_files = config('plugin.webman.console.app.exclude_files',[]);
+        $exclude_files = config('common.console.exclude_files',[]);
         // 打包生成的phar和bin文件是面向生产环境的，所以以下这些命令没有任何意义，执行的话甚至会出错，需要排除在外。
         $exclude_command_files = [
             'AppPluginCreateCommand.php',

@@ -42,10 +42,10 @@ class BuildBinCommand extends BuildPharCommand
         $version = $version >= 8.0 ? $version : 8.1;
         $supportZip = class_exists(ZipArchive::class);
         $microZipFileName = $supportZip ? "php$version.micro.sfx.zip" : "php$version.micro.sfx";
-        $pharFileName = config('plugin.webman.console.app.phar_filename', 'webman.phar');
-        $binFileName = config('plugin.webman.console.app.bin_filename', 'webman.bin');
-        $this->buildDir = config('plugin.webman.console.app.build_dir', base_path() . '/build');
-        $customIni = config('plugin.webman.console.app.custom_ini', '');
+        $pharFileName = config('common.console.phar_filename', 'webman.phar');
+        $binFileName = config('common.console.bin_filename', 'webman.bin');
+        $this->buildDir = config('common.console.build_dir', base_path() . '/build');
+        $customIni = config('common.console.custom_ini', '');
 
         $binFile = "$this->buildDir/$binFileName";
         $pharFile = "$this->buildDir/$pharFileName";
